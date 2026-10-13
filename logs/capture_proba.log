@@ -1,0 +1,380 @@
+[PATCH] RandomForestClassifier replaced with recording subclass
+
+
+======================================================================
+CYBERSYNTH-CGAN: IMPROVED PIPELINE (NO LEAKAGE)
+======================================================================
+Device: cpu
+Dataset path: E:\Zaid PHD\old work\Datasets\CIC-IDS-2017
+======================================================================
+
+[STEP 1/6] Loading and preprocessing data...
+[INFO] Loading 8 CSV files...
+[INFO] Loaded 2830743 total records
+[INFO] Using label column: Label
+
+[INFO] Label distribution:
+Label
+BENIGN                       2273097
+DoS Hulk                      231073
+PortScan                      158930
+DDoS                          128027
+DoS GoldenEye                  10293
+FTP-Patator                     7938
+SSH-Patator                     5897
+DoS slowloris                   5796
+DoS Slowhttptest                5499
+Bot                             1966
+Web Attack: Brute Force         1507
+Web Attack: XSS                  652
+Infiltration                      36
+Web Attack: Sql Injection         21
+Heartbleed                        11
+Name: count, dtype: int64
+
+[INFO] Identified 6 minority classes (< 0.1%):
+  - Bot: 1966 samples
+  - Web Attack: Brute Force: 1507 samples
+  - Web Attack: XSS: 652 samples
+  - Infiltration: 36 samples
+  - Web Attack: Sql Injection: 21 samples
+  - Heartbleed: 11 samples
+
+[INFO] Original feature statistics:
+  Max value: 2.07e+09
+  Min value: -32212234632.00
+
+[STEP 1.5/6] Creating train/test split (BEFORE scaling & GAN training)...
+  Train size: 2262300
+  Test size : 565576
+
+[INFO] Applying log transformation (fit on training rows only)...
+
+[INFO] After log transform:
+  Max value: 21.45
+  Min value: -24.20
+
+[INFO] Final scaled range: [-1.000000, 1.000000]
+
+[INFO] Verifying inverse transform...
+  Original sample max: 3.79e+05
+  Inverse sample max: 3.79e+05
+  ✓ Inverse transform working correctly!
+
+[STEP 2/6] Training improved cGAN on TRAINING SET ONLY...
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+WARNING: Training on CPU detected
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+WARNING: Training on CPU detected
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Adjusting hyperparameters for CPU stability:
+  lr_g: 0.0002 → 0.00015
+  lr_d: 0.0001 → 8e-05
+  base_lambda_gp: 10 → 5
+  n_critic: 5 → 3
+  fm_weight: 0.1 → 0.05
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+======================================================================
+STARTING ENHANCED TRAINING
+======================================================================
+Device: cpu
+Epochs: 2000
+Batch size: 128
+Learning rates: G=0.00015, D=8e-05
+Feature matching weight: 0.05
+Diversity weight: 0.01
+======================================================================
+
+Epoch [   0/2000] | D_loss:  4.1318 | G_loss:  0.0577 | D(real): -0.011 | D(fake): -0.059 | GP:  4.180 | FM: 0.0040
+[Epoch 100] Adjusting LR: G too strong (ratio=0.38)
+Epoch [ 100/2000] | D_loss: -0.4035 | G_loss: -1.0714 | D(real):  1.731 | D(fake):  1.199 | GP:  0.128 | FM: 0.0079
+Epoch [ 200/2000] | D_loss: -2.1718 | G_loss:  1.9085 | D(real):  0.506 | D(fake): -1.715 | GP:  0.049 | FM: 0.0106
+Epoch [ 300/2000] | D_loss: -2.9117 | G_loss:  3.4331 | D(real): -0.378 | D(fake): -3.352 | GP:  0.062 | FM: 0.0163
+Epoch [ 400/2000] | D_loss: -4.5206 | G_loss:  1.9798 | D(real):  2.819 | D(fake): -1.844 | GP:  0.143 | FM: 0.0336
+Epoch [ 500/2000] | D_loss: -3.6650 | G_loss:  4.1788 | D(real): -0.295 | D(fake): -4.015 | GP:  0.055 | FM: 0.0183
+Epoch [ 600/2000] | D_loss: -4.8635 | G_loss:  3.9325 | D(real):  1.053 | D(fake): -3.895 | GP:  0.085 | FM: 0.0169
+Epoch [ 700/2000] | D_loss: -5.2291 | G_loss:  4.7328 | D(real):  0.675 | D(fake): -4.641 | GP:  0.087 | FM: 0.0168
+Epoch [ 800/2000] | D_loss: -7.4520 | G_loss:  3.7010 | D(real):  4.052 | D(fake): -3.845 | GP:  0.445 | FM: 0.0372
+Epoch [ 900/2000] | D_loss: -7.2566 | G_loss:  6.5875 | D(real):  0.962 | D(fake): -6.495 | GP:  0.201 | FM: 0.0234
+Epoch [1000/2000] | D_loss: -9.0856 | G_loss:  5.9119 | D(real):  3.749 | D(fake): -5.778 | GP:  0.442 | FM: 0.0561
+Epoch [1100/2000] | D_loss: -8.6479 | G_loss:  8.2991 | D(real):  0.486 | D(fake): -8.293 | GP:  0.131 | FM: 0.0302
+Epoch [1200/2000] | D_loss: -10.0151 | G_loss:  8.7177 | D(real):  1.757 | D(fake): -8.486 | GP:  0.228 | FM: 0.0333
+Epoch [1300/2000] | D_loss: -11.2566 | G_loss:  7.3949 | D(real):  4.929 | D(fake): -7.157 | GP:  0.830 | FM: 0.0540
+Epoch [1400/2000] | D_loss: -11.2237 | G_loss: 10.2362 | D(real):  1.271 | D(fake): -10.013 | GP:  0.060 | FM: 0.0358
+Epoch [1500/2000] | D_loss: -12.1095 | G_loss: 10.6277 | D(real):  1.837 | D(fake): -10.421 | GP:  0.148 | FM: 0.0367
+
+[INFO] Early stopping at epoch 1531 (no improvement for 1000 epochs)
+[INFO] Restored best model weights
+
+======================================================================
+TRAINING COMPLETED
+======================================================================
+
+
+[STEP 3/6] Skipping plots...
+
+[STEP 4/6] Building augmented dataset (synthetic from train split only)...
+
+======================================================================
+BUILDING AUGMENTED DATASET
+======================================================================
+[INFO] Capping real data to 60000 samples per class...
+
+[INFO] Augmentation Plan:
+  Majority class count: 60000
+  Base target per class: 6000
+  Total synthetic samples planned: 87496
+
+[INFO] Using hybrid augmentation strategy:
+  - SMOTE for classes with < 50 real samples
+  - GAN for classes with >= 50 real samples
+[INFO] Using GAN for 'DoS Slowhttptest' (4399 real samples)
+      ⚠️  Quality validation FAILED
+         KS p-value: 0.0000
+         MMD: 0.919602
+[INFO] Using GAN for 'Web Attack: Brute Force' (1206 real samples)
+      ⚠️  Quality validation FAILED
+         KS p-value: 0.0000
+         MMD: 0.994471
+[INFO] Using GAN for 'SSH-Patator' (4717 real samples)
+      ⚠️  Quality validation FAILED
+         KS p-value: 0.0000
+         MMD: 1.020535
+[INFO] Using GAN for 'DoS slowloris' (4637 real samples)
+      ⚠️  Quality validation FAILED
+         KS p-value: 0.0000
+         MMD: 0.870575
+[INFO] Using GAN for 'Web Attack: XSS' (522 real samples)
+      ⚠️  Quality validation FAILED
+         KS p-value: 0.0000
+         MMD: 1.159823
+[INFO] Using GAN for 'Bot' (1565 real samples)
+      ⚠️  Quality validation FAILED
+         KS p-value: 0.0000
+         MMD: 0.910175
+[INFO] Skipping augmentation for 'Web Attack: Sql Injection' - insufficient samples (17)
+       Classes with <100 samples show degraded performance with synthetic data
+[INFO] Skipping augmentation for 'Infiltration' - insufficient samples (29)
+       Classes with <100 samples show degraded performance with synthetic data
+[INFO] Skipping augmentation for 'Heartbleed' - insufficient samples (9)
+       Classes with <100 samples show degraded performance with synthetic data
+
+[INFO] Total synthetic samples generated: 33661
+
+======================================================================
+SYNTHETIC DATA QUALITY VALIDATION
+======================================================================
+
+DoS Slowhttptest:
+  Status: ✗ FAIL
+  Real samples: 4399
+  Synthetic samples: 1601
+  KS mean p-value: 0.0000
+  KS failed features: 78/0
+  MMD: 0.919602
+  Mean difference: 5809956.000000
+  Threshold type: standard
+
+Web Attack: Brute Force:
+  Status: ✗ FAIL
+  Real samples: 1206
+  Synthetic samples: 9588
+  KS mean p-value: 0.0000
+  KS failed features: 78/0
+  MMD: 0.994471
+  Mean difference: 454299.656250
+  Threshold type: standard
+
+SSH-Patator:
+  Status: ✗ FAIL
+  Real samples: 4717
+  Synthetic samples: 1283
+  KS mean p-value: 0.0000
+  KS failed features: 78/0
+  MMD: 1.020535
+  Mean difference: 298834.343750
+  Threshold type: standard
+
+DoS slowloris:
+  Status: ✗ FAIL
+  Real samples: 4637
+  Synthetic samples: 1363
+  KS mean p-value: 0.0000
+  KS failed features: 78/0
+  MMD: 0.870575
+  Mean difference: 6958264.500000
+  Threshold type: standard
+
+Web Attack: XSS:
+  Status: ✗ FAIL
+  Real samples: 522
+  Synthetic samples: 10956
+  KS mean p-value: 0.0000
+  KS failed features: 78/0
+  MMD: 1.159823
+  Mean difference: 482137.781250
+  Threshold type: standard
+
+Bot:
+  Status: ✗ FAIL
+  Real samples: 1565
+  Synthetic samples: 8870
+  KS mean p-value: 0.0000
+  KS failed features: 78/0
+  MMD: 0.910175
+  Mean difference: 38821.304688
+  Threshold type: standard
+
+======================================================================
+
+======================================================================
+
+
+[STEP 5/6] Comprehensive evaluation on HELD-OUT test set...
+
+======================================================================
+EVALUATION ON HELD-OUT TEST SET (NO LEAKAGE)
+======================================================================
+[INFO] Inverse-transforming TEST features to original scale...
+  Train feature range: -9.66e+09 → 2.07e+09
+  Test  feature range: -2.15e+09 → 2.07e+09
+
+======================================================================
+Real train → Real test
+======================================================================
+Training samples: 271683
+Test samples    : 565576
+
+[INFO] Training Random Forest...
+[INFO] Making predictions...
+  [captured probabilities: (565576, 15)]
+
+                           precision    recall  f1-score   support
+
+                   BENIGN     0.9999    0.9934    0.9966    454265
+                      Bot     0.1655    1.0000    0.2841       391
+                     DDoS     0.9987    0.9991    0.9989     25605
+            DoS GoldenEye     0.9804    0.9971    0.9887      2059
+                 DoS Hulk     0.9894    0.9993    0.9943     46025
+         DoS Slowhttptest     0.9246    0.9918    0.9570      1100
+            DoS slowloris     0.9957    0.9974    0.9966      1159
+              FTP-Patator     0.9987    0.9994    0.9991      1587
+               Heartbleed     1.0000    1.0000    1.0000         2
+             Infiltration     1.0000    0.5714    0.7273         7
+                 PortScan     0.9936    0.9996    0.9966     31761
+              SSH-Patator     0.9992    1.0000    0.9996      1180
+  Web Attack: Brute Force     0.6509    0.6877    0.6688       301
+Web Attack: Sql Injection     1.0000    0.5000    0.6667         4
+          Web Attack: XSS     0.2420    0.5846    0.3423       130
+
+                 accuracy                         0.9943    565576
+                macro avg     0.8626    0.8881    0.8411    565576
+             weighted avg     0.9975    0.9943    0.9956    565576
+
+
+======================================================================
+Real+Synth train → Real test
+======================================================================
+Training samples: 305344
+Test samples    : 565576
+
+[INFO] Training Random Forest...
+[INFO] Making predictions...
+  [captured probabilities: (565576, 15)]
+
+                           precision    recall  f1-score   support
+
+                   BENIGN     0.9999    0.9967    0.9983    454265
+                      Bot     0.4436    0.9949    0.6136       391
+                     DDoS     0.9988    0.9990    0.9989     25605
+            DoS GoldenEye     0.9790    0.9971    0.9880      2059
+                 DoS Hulk     0.9859    0.9994    0.9926     46025
+         DoS Slowhttptest     0.9191    0.9918    0.9541      1100
+            DoS slowloris     0.9931    0.9965    0.9948      1159
+              FTP-Patator     0.9975    0.9987    0.9981      1587
+               Heartbleed     1.0000    1.0000    1.0000         2
+             Infiltration     1.0000    0.5714    0.7273         7
+                 PortScan     0.9937    0.9996    0.9966     31761
+              SSH-Patator     0.9983    1.0000    0.9992      1180
+  Web Attack: Brute Force     0.6965    0.9834    0.8154       301
+Web Attack: Sql Injection     0.6667    0.5000    0.5714         4
+          Web Attack: XSS     0.4615    0.0462    0.0839       130
+
+                 accuracy                         0.9970    565576
+                macro avg     0.8756    0.8717    0.8488    565576
+             weighted avg     0.9974    0.9970    0.9971    565576
+
+
+======================================================================
+MINORITY CLASS PERFORMANCE COMPARISON
+======================================================================
+
+Class                           Base Recall   Aug Recall  Improvement    Support
+--------------------------------------------------------------------------------
+Bot                                  1.0000       0.9949     -0.0051        391
+Heartbleed                           1.0000       1.0000 +     0.0000          2
+Infiltration                         0.5714       0.5714 +     0.0000          7
+Web Attack: Brute Force              0.6877       0.9834 +     0.2957        301
+Web Attack: Sql Injection            0.5000       0.5000 +     0.0000          4
+Web Attack: XSS                      0.5846       0.0462     -0.5385        130
+
+======================================================================
+
+
+======================================================================
+PIPELINE COMPLETED SUCCESSFULLY (NO LEAKAGE)
+======================================================================
+
+
+[TIMING] 53.7 minutes
+
+[INFO] experiments: ['Real train → Real test', 'Real+Synth train → Real test']
+[INFO] probability arrays captured: 2
+
+[DONE] C:\Users\zaidm\Downloads\predictions_with_proba.npz  (10.2 MB)
+Now run METRICS_AND_FIGURES.py again to get Figure 5 and Figure 8.
+
+
+
+
+
+
+
+
+
+Loaded predictions_with_proba.npz
+  arrays: ['y_true', 'yp_base', 'yp_aug', 'classes_base', 'proba_base', 'classes_aug', 'proba_aug']
+
+**Table 7.** Extended evaluation metrics, baseline versus augmented, on the held-out test partition.
+
+| Metric | Baseline | Augmented | Δ |
+|---|---|---|---|
+| Matthews correlation coefficient | 0.9836 | 0.9912 | +0.0076 |
+| Cohen's kappa | 0.9835 | 0.9912 | +0.0077 |
+| Balanced accuracy | 0.8881 | 0.8717 | -0.0164 |
+| G-mean (per-class recall) | 0.8643 | 0.7472 | -0.1171 |
+| Macro F1 | 0.8411 | 0.8488 | +0.0077 |
+| **Web Attack: Brute Force** — recall | 0.6877 | 0.9834 | +0.2957 |
+| — precision | 0.6509 | 0.6965 | +0.0455 |
+| — false positive rate | 0.000196 | 0.000228 | +0.000032 |
+| — ROC-AUC | 0.9998 | 0.9999 | +0.0001 |
+| — PR-AUC | 0.7919 | 0.8340 | +0.0421 |
+| **Web Attack: XSS** — recall | 0.5846 | 0.0462 | -0.5385 |
+| — precision | 0.2420 | 0.4615 | +0.2195 |
+| — false positive rate | 0.000421 | 0.000012 | -0.000409 |
+| — ROC-AUC | 0.9988 | 0.9995 | +0.0007 |
+| — PR-AUC | 0.3557 | 0.4267 | +0.0710 |
+| **Bot** — recall | 1.0000 | 0.9949 | -0.0051 |
+| — precision | 0.1655 | 0.4436 | +0.2780 |
+| — false positive rate | 0.003487 | 0.000863 | -0.002624 |
+| — ROC-AUC | 0.9998 | 0.9998 | -0.0000 |
+| — PR-AUC | 0.7893 | 0.7818 | -0.0075 |
+
+[DONE] Written to C:\Users\zaidm\Downloads:
+   table7_extended_metrics.md
+   Figure5_ROC.png
+   Figure8_PR_curves.png

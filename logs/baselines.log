@@ -1,0 +1,88 @@
+Loading and preprocessing...
+[INFO] Loading 8 CSV files...
+[INFO] Loaded 2830743 total records
+[INFO] Using label column: Label
+
+[INFO] Label distribution:
+Label
+BENIGN                       2273097
+DoS Hulk                      231073
+PortScan                      158930
+DDoS                          128027
+DoS GoldenEye                  10293
+FTP-Patator                     7938
+SSH-Patator                     5897
+DoS slowloris                   5796
+DoS Slowhttptest                5499
+Bot                             1966
+Web Attack: Brute Force         1507
+Web Attack: XSS                  652
+Infiltration                      36
+Web Attack: Sql Injection         21
+Heartbleed                        11
+Name: count, dtype: int64
+
+[INFO] Identified 6 minority classes (< 0.1%):
+  - Bot: 1966 samples
+  - Web Attack: Brute Force: 1507 samples
+  - Web Attack: XSS: 652 samples
+  - Infiltration: 36 samples
+  - Web Attack: Sql Injection: 21 samples
+  - Heartbleed: 11 samples
+
+[INFO] Original feature statistics:
+  Max value: 2.07e+09
+  Min value: -32212234632.00
+[INFO] load_and_preprocess returned 4 values
+[INFO] features are raw (max |x| = 3.221e+10)
+[INFO] using module's fit_log_minmax_scaler
+
+[INFO] Applying log transformation (fit on training rows only)...
+
+[INFO] After log transform:
+  Max value: 21.45
+  Min value: -24.20
+
+[INFO] Final scaled range: [-1.000000, 1.000000]
+
+[INFO] Verifying inverse transform...
+  Original sample max: 3.79e+05
+  Inverse sample max: 3.79e+05
+  ✓ Inverse transform working correctly!
+  scaled range: [-1.0000, 1.0000]
+  train 271,683 (capped)   test 565,576
+  Brute Force test support: 301   (expect 301)
+  XSS test support        : 130   (expect 130)
+
+
+No augmentation
+  training rows : 271,683
+  Brute Force   : 68.11%
+  XSS           : 58.46%
+  time          : 0.7 min
+
+Random oversampling
+  training rows : 308,582
+  Brute Force   : 63.79%
+  XSS           : 64.62%
+  time          : 0.8 min
+
+SMOTE
+  training rows : 308,582
+  Brute Force   : 61.46%
+  XSS           : 66.92%
+  time          : 0.8 min
+
+======================================================================
+**Table VII rows, regenerated on the corrected pipeline (seed 42).**
+
+| Method | Brute Force recall | XSS recall | Training time |
+|---|---|---|---|
+| No augmentation | 68.11% | 58.46% | 1 min |
+| Random oversampling | 63.79% | 64.62% | 1 min |
+| SMOTE | 61.46% | 66.92% | 1 min |
+| Cyber-Synth-CGAN (unfiltered) | 98.34% | 4.62% | 48 min |
+
+*Cyber-Synth-CGAN row carried over from the main run for comparison.*
+
+Paste these rows into Table VII, replacing the stale values.
